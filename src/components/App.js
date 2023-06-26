@@ -23,7 +23,7 @@ function App() {
     }).filter ((eachPhrase) => {
       const phraseCharacter = eachPhrase.character.toLowerCase();
       return (
-        phraseCharacter === select
+        phraseCharacter === select || phraseCharacter.includes(select)
       )
     });
     return filter.map((eachPhrase , index)=>{
@@ -38,7 +38,6 @@ function App() {
     fetch('https://beta.adalab.es/curso-intensivo-fullstack-recursos/apis/quotes-friends-tv-v1/quotes.json')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setFriendsData(data);
       });
   }, []);
@@ -53,14 +52,14 @@ function App() {
             <input className='main__form--input' type='text' onChange={handleSearch}></input>
           </label>
           <label>
-            <select className='main__form--select'>
-              <option>Todos</option>
-              <option>Ross</option>
-              <option>Mónica</option>
-              <option>Joey</option>
-              <option>Phoebe</option>
-              <option>Chadler</option>
-              <option>Rachel</option>
+            <select className='main__form--select' onChange={handleSelect}>
+              <option value="">Todos</option>
+              <option value="Ross">Ross</option>
+              <option value="Mónica">Mónica</option>
+              <option value="Joey">Joey</option>
+              <option value="Phoebe">Phoebe</option>
+              <option value="Chadler">Chadler</option>
+              <option value="Rachel">Rachel</option>
             </select>
           </label>
         </form>
