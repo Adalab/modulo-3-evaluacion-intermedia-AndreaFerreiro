@@ -9,6 +9,7 @@
         flex-wrap: wrap;
         gap: 10px;
         padding: 20px 10px;
+        justify-content: center;
     }
     &__form{
         margin: 10px 5px;
@@ -32,8 +33,12 @@
     border: solid black 1px;
     border-radius: 10px;
     padding: 10px;
+    width: 45%;
     &__text{
         font-size: 18px;
         font-weight: bold;
+    }
+    &__author{
+        text-decoration: underline;
     }
 }

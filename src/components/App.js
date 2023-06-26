@@ -42,14 +42,14 @@ function App() {
       });
   }, []);
   return (
-    <div>
+    <div className='page'>
       <header className='header'>
         <h1 className='header__title'>Frases de Friends</h1>
       </header>
       <main className='main'>
         <form className='main__form'>
           <label>
-            <input className='main__form--input' type='text' onChange={handleSearch}></input>
+            <input placeholder='Filtrar por frase' className='main__form--input' type='text' onChange={handleSearch}></input>
           </label>
           <label>
             <select className='main__form--select' onChange={handleSelect}>
