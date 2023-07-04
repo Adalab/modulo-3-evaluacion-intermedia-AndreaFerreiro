@@ -4,6 +4,10 @@ function App() {
   const [friendsData, setFriendsData] = useState([]);
   const [search , setSearch] = useState('');
   const [select , setSelect] = useState ('');
+  const [newQuote, setNewQuote] =useState({
+    quote:'',
+    character:''
+  })
   const handleSearch = (ev) => {
     ev.preventDefault();
     const searchValue = ev.target.value.toLowerCase();
@@ -14,6 +18,16 @@ function App() {
     const selectedCharacter = ev.target.value.toLowerCase();
     setSelect (selectedCharacter);
   }
+  const handleAddNewQuote =(ev)=>{
+    setNewQuote({...newQuote,
+      [ev.target.id] : ev.target.value})
+    }
+    
+    const handleAddNewQuoteBtn =()=>{
+      console.log('newQuote: ', newQuote)
+     setFriendsData([...friendsData, newQuote])
+     setNewQuote({ friendsData: '', character: '' });
+    }
   const renderPhrase = () => {
     const filter = friendsData.filter ( (eachPhrase) => {
       const phraseText = eachPhrase.quote.toLowerCase();
@@ -28,9 +42,9 @@ function App() {
     });
     return filter.map((eachPhrase , index)=>{
       return <li key={index} className='phrase'>
-      <p className='phrase__text'>{eachPhrase.quote}</p>
-      <p className='phrase__line'> - </p>
-      <p className='phrase__author'>{eachPhrase.character}</p>
+      <span className='phrase__text'>{eachPhrase.quote}</span>
+      <span className='phrase__line'> - </span>
+      <span className='phrase__author'>{eachPhrase.character}</span>
       </li>
     });
   }
@@ -48,11 +62,11 @@ function App() {
       </header>
       <main className='main'>
         <form className='main__form'>
-          <label>
-            <input placeholder='Filtrar por frase' className='main__form--input' type='text' onChange={handleSearch}></input>
+          <label htmlFor='phrase'>
+            <input htmlFor='phrase' placeholder='Filtrar por frase' className='main__form--input' type='text' onChange={handleSearch}></input>
           </label>
-          <label>
-            <select className='main__form--select' onChange={handleSelect}>
+          <label htmlFor='author'>
+            <select htmlFor='author' className='main__form--select' onChange={handleSelect}>
               <option value="">Todos</option>
               <option value="Ross">Ross</option>
               <option value="Mónica">Mónica</option>
@@ -66,6 +80,40 @@ function App() {
         <ul className='main__list'>
           {renderPhrase()}
         </ul>
+        <section className='addQuote'>
+            <h2 className='addQuote__title'>Añadir una frase nueva</h2>
+            <div className='addQuote__form'>
+              <label className='addQuote__form--label'>
+                Frase
+                <input
+                  className='addQuote__form--selectQuote'
+                  type='text'
+                  name='quote'
+                  id='quote'
+                  value={newQuote.quote}
+                  onChange={handleAddNewQuote}
+                />
+              </label>
+                <label className='addQuote__form--label'>
+                  Personaje
+                  <input
+                    className='addQuote__form--selectCharacter'
+                    type='text'
+                    name='character'
+                    id='character'
+                    value={newQuote.character}
+                    onChange={handleAddNewQuote}
+                  />
+                </label>
+                <input
+                  className='btn__addQuote'
+                  type='button'
+                  value='Añadir'
+                  onClick={handleAddNewQuoteBtn}
+                />
+              
+            </div>
+          </section>
       </main>
     </div>
   );
